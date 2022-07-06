@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <preConditions>
+        <dbms type="postgresql"/>
+    </preConditions>
+
+    <changeSet id="04.07.2022 - Init database" author="Daniil Smirnov">
+        <tagDatabase tag="db_init"/>
+    </changeSet>
+
+    <include file="liquibase/0.0.1/changeset-1.0.0.xml"/>
+    <include file="liquibase/0.0.1/changeset-1.0.0-predefined.xml"/>
+
+</databaseChangeLog>
