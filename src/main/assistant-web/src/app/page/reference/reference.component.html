@@ -1,0 +1,23 @@
+<app-header (onClickMenu)="drawer.toggle()"></app-header>
+
+<mat-drawer-container>
+
+  <mat-drawer #drawer class="side-nav-drawer" mode="over" opened="false">
+    <app-menu [selectedMenu]="menuItem"></app-menu>
+  </mat-drawer>
+
+  <div class="page-content">
+    <main class="side-nav-container">
+      <div class="side-nav-content">
+        <app-menu [selectedMenu]="menuItem"></app-menu>
+      </div>
+
+      <div class="content">
+
+        <p>reference works!</p>
+
+      </div>
+    </main>
+  </div>
+
+</mat-drawer-container>

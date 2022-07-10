@@ -1,0 +1,51 @@
+.menu-container {
+  overflow: auto;
+  height: calc(100vh - 64px);
+  display: block;
+  background: #ffffff;
+}
+
+.menu-container::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+}
+
+.menu-container::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,.26);
+}
+
+.menu-item-title {
+  display: block;
+}
+
+a.menu-item-title:link, a.menu-item-title:active, a.menu-item-title:visited, a.menu-item-title:hover, a.menu-item-title {
+  text-decoration: none;
+  color: #0000008a;
+}
+
+.selected-menu-item-title {
+  display: block;
+}
+
+a.selected-menu-item-title:link, a.selected-menu-item-title:active, a.selected-menu-item-title:visited, a.selected-menu-item-title:hover, a.selected-menu-item-title {
+  text-decoration: none;
+  color: #3f51b5;
+}
+
+.mat-list-single-selected-option, .mat-list-single-selected-option:hover, .mat-list-single-selected-option:focus {
+  background: #dee1f0;
+  color: #3f51b5 !important;
+}
+
+.mat-list-single-selected-option, .mat-list-single-selected-option:hover, .mat-list-single-selected-option:hover {
+  background: #c2c7e6;
+  color: #3f51b5 !important;
+}
+
+.mat-list-base .mat-list-item {
+  color: #0000008a;
+}
+
+.mat-list-base {
+  padding: 0;
+}
