@@ -1,9 +1,0 @@
-<div class="menu-container">
-  <mat-selection-list [multiple]="false">
-    <a mat-list-item *ngFor="let menuItem of menu"
-       [ngClass]="(menuItem.path === selectedMenu) ? 'menu-item-active' : 'menu-item'"
-       routerLink="{{menuItem.path}}">
-      {{menuItem.title}}
-    </a>
-  </mat-selection-list>
-</div>
