@@ -1,0 +1,42 @@
+version: '3.1'
+services:
+
+  app:
+    container_name: AssistantApplicationApp
+    image: assistant/application:0.0.1
+    build: ./src/main/assistant-core
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/electronicassistant
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+    depends_on:
+      - db
+  db:
+    container_name: PostgresSQLApp
+    image: postgres:13
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=electronicassistant
+  keycloak:
+    container_name: KeycloakApp
+    image: jboss/keycloak:12.0.4
+    ports:
+      - "9080:8080"
+    environment:
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+  web:
+    container_name: AssistantWebApp
+    image: assistant/web:0.0.1
+#    build:
+#      context: ./src/main/assistant-web/.angular
+#      dockerfile: ../../assistant-web/Dockerfile
+#    volumes:
+#      - './angular:/frontrend'
+    ports:
+      - "4200:4200"

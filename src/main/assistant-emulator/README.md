@@ -1,9 +1,95 @@
-# Getting Started
+# Assistant Emulator Module
 
-### Reference Documentation
-For further reference, please consider the following sections:
+Данный модуль эмулирует работу 1С
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.7.1/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.7.1/maven-plugin/reference/html/#build-image)
+## API Reference
 
+### Структура университета
+
+#### Получение данных о группах
+
+```http
+  GET /api/structure/getGroups
+```
+
+###### Response
+
+| Parameter       | Type                    | Description                                  |
+|:----------------|:------------------------|:---------------------------------------------|
+| `title`         | `string` **(not null)** | Номер группы (например, **бАП-181**)         |
+| `faculty`       | `string` **(not null)** | Абривиатура факультета (например, **ФИТКБ**) |
+
+#### Получение данных о факультетах
+
+```http
+  GET /api/structure/getFaculties
+```
+
+###### Response
+
+| Parameter      | Type                    | Description                                  |
+|:---------------|:------------------------|:---------------------------------------------|
+| `title`        | `string` **(not null)** | Полное название факультета                   |
+| `abbreviation` | `string` **(not null)** | Абривиатура факультета (например, **ФИТКБ**) |
+
+[//]: # (#### Получение данных о департаментах)
+
+[//]: # ()
+[//]: # (```http)
+
+[//]: # (  GET /api/)
+
+[//]: # (```)
+
+### Пользователи
+
+#### Получение данных студента
+
+```http
+  GET /api/student/getStudent/${gradeBook}
+```
+
+###### Request
+
+| Parameter   | Type                    | Description                    |
+|:------------|:------------------------|:-------------------------------|
+| `gradeBook` | `string` **(not null)** | Номер зачётной книжки студента |
+
+###### Response
+
+| Parameter          | Type                    | Description                                               |
+|:-------------------|:------------------------|:----------------------------------------------------------|
+| `group`            | `string` **(not null)** | Группа, в которой учится студент                          |
+| `tuitionType`      | `string` **(not null)** | Тип обучения (например, **бюджет**/**контракт**)          |
+| `tuitionForm`      | `string` **(not null)** | Форма обучения (например, **очное**/**заочное**)          |
+| `trainingLevel`    | `string` **(not null)** | Уровень подготовки (например, **бакалавр**/**магистр**)   |
+| `studentCondition` | `string` **(not null)** | Состояние (например, является **студентом**/**отчислен**) |
+| `startDate`        | `string` **(not null)** | Дата начала обучения                                      |
+| `endDate`          | `string` **(not null)** | Предпологаемая дата окончания обучения                    |
+
+#### Получение данных сотрудника
+
+```http
+  GET /api/employee/getEmployee/${email}
+```
+
+###### Request
+
+| Parameter | Type                    | Description      |
+|:----------|:------------------------|:-----------------|
+| `email`   | `string` **(not null)** | Почта сотрудника |
+
+###### Response
+
+| Parameter    | Type                    | Description                              |
+|:-------------|:------------------------|:-----------------------------------------|
+| `post`       | `string` **(not null)** | Должность сотрудника                     |
+| `department` | `string` **(not null)** | Департамент в котором работает сотрудник |
+
+### Ведомости
+
+#### Получение ведомости
+
+```http
+  GET /api/
+```

@@ -97,6 +97,106 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="12-07-2022 - Create table STR_STUDENT_CONDITION"
+               author="Daniil Smirnov">
+        <createSequence
+                sequenceName="STR_STUDENT_CONDITION_STUDENT_CONDITION_ID_SEQ"
+                cycle="false"
+                startValue="1000"
+                incrementBy="1"/>
+
+        <createTable tableName="STR_STUDENT_CONDITION">
+            <column name="STUDENT_CONDITION_ID"
+                    type="java.lang.Long"
+                    valueSequenceNext="nextval('STR_STUDENT_CONDITION_STUDENT_CONDITION_ID_SEQ')"
+                    defaultValue="nextval('STR_STUDENT_CONDITION_STUDENT_CONDITION_ID_SEQ')">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="STUDENT_CONDITION_PK"/>
+            </column>
+
+            <column name="TITLE"
+                    type="java.lang.String">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="12-07-2022 - Create table STR_TRAINING_LEVEL"
+               author="Daniil Smirnov">
+        <createSequence
+                sequenceName="STR_TRAINING_LEVEL_TRAINING_LEVEL_ID_SEQ"
+                cycle="false"
+                startValue="1000"
+                incrementBy="1"/>
+
+        <createTable tableName="STR_TRAINING_LEVEL">
+            <column name="TRAINING_LEVEL_ID"
+                    type="java.lang.Long"
+                    valueSequenceNext="nextval('STR_TRAINING_LEVEL_TRAINING_LEVEL_ID_SEQ')"
+                    defaultValue="nextval('STR_TRAINING_LEVEL_TRAINING_LEVEL_ID_SEQ')">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="TRAINING_LEVEL_PK"/>
+            </column>
+
+            <column name="TITLE"
+                    type="java.lang.String">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="12-07-2022 - Create table STR_TUITION_FORM"
+               author="Daniil Smirnov">
+        <createSequence
+                sequenceName="STR_TUITION_FORM_TUITION_FORM_ID_SEQ"
+                cycle="false"
+                startValue="1000"
+                incrementBy="1"/>
+
+        <createTable tableName="STR_TUITION_FORM">
+            <column name="TUITION_FORM_ID"
+                    type="java.lang.Long"
+                    valueSequenceNext="nextval('STR_TUITION_FORM_TUITION_FORM_ID_SEQ')"
+                    defaultValue="nextval('STR_TUITION_FORM_TUITION_FORM_ID_SEQ')">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="TUITION_FORM_PK"/>
+            </column>
+
+            <column name="TITLE"
+                    type="java.lang.String">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="12-07-2022 - Create table STR_TUITION_TYPE"
+               author="Daniil Smirnov">
+        <createSequence
+                sequenceName="STR_TUITION_TYPE_TUITION_TYPE_ID_SEQ"
+                cycle="false"
+                startValue="1000"
+                incrementBy="1"/>
+
+        <createTable tableName="STR_TUITION_TYPE">
+            <column name="TUITION_TYPE_ID"
+                    type="java.lang.Long"
+                    valueSequenceNext="nextval('STR_TUITION_TYPE_TUITION_TYPE_ID_SEQ')"
+                    defaultValue="nextval('STR_TUITION_TYPE_TUITION_TYPE_ID_SEQ')">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="TUITION_TYPE_PK"/>
+            </column>
+
+            <column name="TITLE"
+                    type="java.lang.String">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
     <changeSet id="04-07-2022 - Create table SEC_USER"
                author="Daniil Smirnov">
         <createSequence
@@ -167,24 +267,32 @@
                              references="STR_GROUP(GROUP_ID)"/>
             </column>
 
-            <column name="TUITION_TYPE"
-                    type="java.lang.STRING">
-                <constraints nullable="false"/>
+            <column name="TUITION_TYPE_ID"
+                    type="java.lang.Long">
+                <constraints nullable="false"
+                             foreignKeyName="TUITION_TYPE_FK"
+                             references="STR_TUITION_TYPE(TUITION_TYPE_ID)"/>
             </column>
 
-            <column name="TUITION_FORM_TYPE"
-                    type="java.lang.STRING">
-                <constraints nullable="false"/>
+            <column name="TUITION_FORM_ID"
+                    type="java.lang.Long">
+                <constraints nullable="false"
+                             foreignKeyName="TUITION_FORM_FK"
+                             references="STR_TRAINING_LEVEL(TRAINING_LEVEL_ID)"/>
             </column>
 
-            <column name="TRAINING_LEVEL_TYPE"
-                    type="java.lang.STRING">
-                <constraints nullable="false"/>
+            <column name="TRAINING_LEVEL_ID"
+                    type="java.lang.Long">
+                <constraints nullable="false"
+                             foreignKeyName="STUDENT_TRAINING_LEVEL_FK"
+                             references="STR_TUITION_FORM(TUITION_FORM_ID)"/>
             </column>
 
-            <column name="CONDITION_TYPE"
-                    type="java.lang.STRING">
-                <constraints nullable="false"/>
+            <column name="STUDENT_CONDITION_ID"
+                    type="java.lang.Long">
+                <constraints nullable="false"
+                             foreignKeyName="STUDENT_STUDENT_CONDITION_FK"
+                             references="STR_STUDENT_CONDITION(STUDENT_CONDITION_ID)"/>
             </column>
 
             <column name="START_DATE"
