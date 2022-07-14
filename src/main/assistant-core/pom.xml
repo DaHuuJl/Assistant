@@ -11,14 +11,14 @@
 
 	<artifactId>assistant.core</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>AST-core</name>
+	<name>AssistantApplication</name>
 	<description>assistant.core</description>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<properties>
 		<java.version>11</java.version>
 		<log4j.version>2.17.2</log4j.version>
-		<swagger.version>3.0.0</swagger.version>
+		<swagger.ui.version>1.6.9</swagger.ui.version>
 		<thymeleaf.version>3.1.0.M1</thymeleaf.version>
 		<mapstruct.version>1.4.2.Final</mapstruct.version>
 		<google.guava.version>27.0.1-jre</google.guava.version>
@@ -88,7 +88,7 @@
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.6.4</version>
+			<version>${swagger.ui.version}</version>
 		</dependency>
 
 		<!-- Liquibase -->
@@ -159,6 +159,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>${project.name}</finalName>
 	</build>
 
 </project>

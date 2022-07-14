@@ -20,7 +20,7 @@ public class Topic {
             sequenceName = "EVN_TOPIC_TOPIC_ID_SEQ", allocationSize = 1)
     private Long id;
 
-    @Column(name = "TITLE", nullable = true)
+    @Column(name = "TITLE", nullable = false)
     private String title;
 
     @OneToMany(mappedBy = "topic", fetch = FetchType.LAZY)

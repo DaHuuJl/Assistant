@@ -28,21 +28,21 @@ public class Student {
     @JoinColumn(name = "GROUP_ID", nullable = false)
     private Group group;
 
-    @Column(name = "TUITION_TYPE", nullable = false)
-    @Enumerated(EnumType.STRING)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "TUITION_TYPE_ID", nullable = false)
     private TuitionType tuitionType;
 
-    @Column(name = "TUITION_FORM_TYPE", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private TuitionFormType tuitionFormType;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "TUITION_FORM_ID", nullable = false)
+    private TuitionForm tuitionForm;
 
-    @Column(name = "TRAINING_LEVEL_TYPE", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private TrainingLevelType trainingLevelType;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "TRAINING_LEVEL_ID", nullable = false)
+    private TrainingLevel trainingLevel;
 
-    @Column(name = "CONDITION_TYPE", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private ConditionType conditionType;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "STUDENT_CONDITION_ID", nullable = false)
+    private StudentCondition studentCondition;
 
     @Column(name = "START_DATE", nullable = false)
     private Date startDate;
