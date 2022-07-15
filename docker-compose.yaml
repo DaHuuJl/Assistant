@@ -1,42 +1,98 @@
-version: '3.1'
+version: '3'
+
+volumes:
+  db-data:
+  pgadmin-data:
+  postgres_data:
+    driver: local
+
 services:
 
   app:
-    container_name: AssistantApplicationApp
+    container_name: AssistantApplication-App
     image: assistant/application:0.0.1
     build: ./src/main/assistant-core
     ports:
       - "8082:8082"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/electronicassistant
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=postgres
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/electronicassistant
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
     depends_on:
       - db
-  db:
-    container_name: PostgresSQLApp
-    image: postgres:13
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=electronicassistant
-  keycloak:
-    container_name: KeycloakApp
-    image: jboss/keycloak:12.0.4
-    ports:
-      - "9080:8080"
-    environment:
-      - KEYCLOAK_USER=admin
-      - KEYCLOAK_PASSWORD=admin
+
   web:
-    container_name: AssistantWebApp
+    container_name: AssistantWebClient-App
     image: assistant/web:0.0.1
-#    build:
-#      context: ./src/main/assistant-web/.angular
-#      dockerfile: ../../assistant-web/Dockerfile
-#    volumes:
-#      - './angular:/frontrend'
     ports:
       - "4200:4200"
+
+  db:
+    container_name: Postgres-App
+    image: postgres:13
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: electronicassistant
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  postgres:
+    container_name: Postgres-Keycloak-App
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+
+  pgadmin:
+    container_name: PgAdmin-App
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: postgres@cchgeu.ru
+      PGADMIN_DEFAULT_PASSWORD: postgres
+      PGADMIN_LISTEN_PORT: 80
+    ports:
+      - "8084:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    links:
+      - "db:pgsql-server"
+      - "postgres:pgsql-server"
+    depends_on:
+      - db
+
+  keycloak:
+    container_name: Keycloak-App
+    image: jboss/keycloak:16.1.1
+    ports:
+        - "9080:8080"
+    environment:
+      # PostgreSQL settings
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_SCHEMA: public
+      DB_PASSWORD: password
+      # Admin account
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+    depends_on:
+      - postgres
+
+#  web:
+#    container_name: AssistantWebApp
+#    image: assistant/web:0.0.1
+#    build:
+#      context: ./src/main/assistant-web
+#      dockerfile: Dockerfile
+#    volumes:
+#      - '/src/main/assistant-web/src:/frontrend/src'
+#    ports:
+#      - "4200:4200"
